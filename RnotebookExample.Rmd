@@ -1,0 +1,72 @@
+---
+output_dir: "."
+title: "RNotebookExample"
+output: html_document
+---
+
+```{r load-data, message = FALSE}
+# use normal R environment syntax within this chunk
+# load libraries
+library(tidyverse)
+library(kableExtra) # used for kbl()
+library(rmarkdown) # used for paged_table()
+library(ggpubr) # used for ggarrange()
+
+#read file into R
+pop_data <- read_csv("data/gapminder_data.csv")
+
+#transform data to create a table from European countires in 2007,
+#filtered out some cols, ordered by life expectancy
+euro_data_tbl <- pop_data %>% 
+  filter(continent == "Europe" & year == "2007") %>% 
+  select(-continent, -year) %>% 
+  arrange(desc(lifeExp)) %>% 
+  rename("Country" = country, 
+         "Population Size" = pop, 
+         "Life Expectancy" = lifeExp, 
+         "GDP" = gdpPercap)
+  
+```
+
+The result in euro_data_tbl are displayed in the Table below:
+
+```{r kbl-table demo}
+euro_data_tbl %>% 
+  kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = F)
+```
+
+This is a better way to display long tables:
+
+```{r paged-table demo}
+euro_data_tbl %>% 
+  paged_table()
+```
+
+# Inserting Images
+There is no special way, you just need to use ggplot
+```{r}
+# make violin plot of europe data
+euro_plot_1 <- pop_data %>% 
+  filter(continent == "Europe") %>% 
+  ggplot(aes(x = factor(year), y = lifeExp)) +
+  geom_violin() +
+  # gives the violin plots median points
+  stat_summary(fun = median, geom = "point")
+
+# make scatterplot of uk data
+uk_plot <- pop_data %>% 
+  filter(country == "United Kingdom") %>% 
+  ggplot(aes(x = year, y = lifeExp)) +
+  geom_point()
+
+#plot the two side-by-side
+ggarrange(euro_plot_1, uk_plot, 
+          labels = c("A", "B"))
+```
+
+
+
+
+

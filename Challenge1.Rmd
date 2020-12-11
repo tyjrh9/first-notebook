@@ -1,0 +1,23 @@
+---
+title: "1,500 Scientists Lift the Lid on Reproducibility"
+author: Monya Baker
+date: 25 May 2016
+output: html_document
+---
+\
+
+# Survey sheds light on the 'crisis rocking research
+**More than 70% of researcher have tried and failed to reproduce...** and more than half...
+
+![](figs/reproducibility-graphic-online1.jpeg)\
+
+# The Survey
+\
+
+In the survey[^1] respondents were...\
+
+- thing one
+- thing 2
+- etc
+
+[^1]: The survey can be downloaded [here](https://www.nature.com/news/polopoly_fs/7.36741!/file/Reproduciblility%20Questionnaire.doc)
